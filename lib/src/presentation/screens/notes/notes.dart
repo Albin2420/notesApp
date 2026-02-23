@@ -1,11 +1,12 @@
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:notesapp/src/core/config/theme/colors.dart';
 import 'package:notesapp/src/presentation/controller/newnote/newnotes_controller.dart';
 
-class Newnotes extends StatelessWidget {
-  const Newnotes({super.key});
+class Notes extends StatelessWidget {
+  const Notes({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,21 @@ class Newnotes extends StatelessWidget {
 
             onSelected: (value) {
               if (value == 'save') {
-                ctrl.saveNotes();
+                final random = Random();
+                final randomColor = AppColors
+                    .notecolors[random.nextInt(AppColors.notecolors.length)];
+                final colorCode = randomColor.toARGB32();
+
+                final uniqueId = DateTime.now().millisecondsSinceEpoch;
+
+                ctrl.saveNotes(
+                  title: ctrl.titleController.text,
+                  notes: ctrl.notesController.text,
+                  id: uniqueId,
+                  colorcode: colorCode,
+                );
               } else if (value == 'discard') {
-                log('Discard clicked');
-              } else if (value == 'pin') {
-                log('Pin clicked');
+                ctrl.clearFields();
               }
             },
 
@@ -62,8 +73,9 @@ class Newnotes extends StatelessWidget {
           child: Column(
             children: [
               TextField(
+                controller: ctrl.titleController,
                 style: const TextStyle(
-                  fontSize: 22,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
                 decoration: const InputDecoration(
@@ -77,6 +89,7 @@ class Newnotes extends StatelessWidget {
 
               Expanded(
                 child: TextField(
+                  controller: ctrl.notesController,
                   expands: true,
                   maxLines: null,
                   minLines: null,
