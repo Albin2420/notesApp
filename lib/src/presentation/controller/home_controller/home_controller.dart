@@ -6,7 +6,10 @@ import 'package:notesapp/src/data/models/notes/note_model.dart';
 class HomeController extends GetxController {
   RxList<NoteModel> notes = <NoteModel>[].obs;
 
+  RxSet<int> selectedNoteKeys = <int>{}.obs;
+
   late Box<NoteModel> notesBox;
+  RxBool selectionMode = false.obs;
 
   @override
   void onInit() {
@@ -34,4 +37,29 @@ class HomeController extends GetxController {
       log("💥 fetchNotes error: $e");
     }
   }
+
+  void toggleSelection(NoteModel note) {
+    if (selectedNoteKeys.contains(note.key)) {
+      selectedNoteKeys.remove(note.key);
+    } else {
+      selectedNoteKeys.add(note.key);
+    }
+
+    selectionMode.value = selectedNoteKeys.isNotEmpty;
+  }
+
+  void deleteSelectedNotes() {
+    for (var key in selectedNoteKeys) {
+      notesBox.delete(key);
+    }
+    selectedNoteKeys.clear();
+    selectionMode.value = false;
+  }
+
+  void clearSelection() {
+    selectedNoteKeys.clear();
+    selectionMode.value = false;
+  }
+
+  bool isSelected(NoteModel note) => selectedNoteKeys.contains(note.key);
 }
