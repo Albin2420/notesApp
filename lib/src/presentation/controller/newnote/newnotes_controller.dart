@@ -30,6 +30,13 @@ class NewnotesController extends GetxController {
     try {
       EasyLoading.show();
 
+      if ((title.trim().isEmpty) && (notes.trim().isEmpty)) {
+        Fluttertoast.showToast(msg: "Don't forget to fill this out!");
+        EasyLoading.dismiss();
+        Get.back();
+        return;
+      }
+
       if (existingNote != null) {
         existingNote.title = title;
         existingNote.description = notes;
@@ -49,8 +56,11 @@ class NewnotesController extends GetxController {
       Get.back();
     } catch (e) {
       EasyLoading.dismiss();
+      Get.back();
       Fluttertoast.showToast(msg: "Something went wrong");
       log("💥 Errors in saveNotes:$e");
+    } finally {
+      EasyLoading.dismiss();
     }
   }
 

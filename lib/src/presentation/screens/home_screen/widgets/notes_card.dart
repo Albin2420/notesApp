@@ -5,7 +5,6 @@ import 'package:notesapp/src/data/models/notes/note_model.dart';
 class NoteCard extends StatelessWidget {
   final NoteModel note;
   final Color color;
-
   final VoidCallback onTap;
 
   const NoteCard({
@@ -32,32 +31,35 @@ class NoteCard extends StatelessWidget {
             ),
           ],
         ),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              note.title,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.black87,
+            if (note.title.trim().isNotEmpty)
+              Text(
+                note.title,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
               ),
-            ),
 
-            if (note.description.isNotEmpty) const SizedBox(height: 10),
+            if (note.title.trim().isNotEmpty &&
+                note.description.trim().isNotEmpty)
+              const SizedBox(height: 10),
 
-            Text(
-              note.description,
-              style: GoogleFonts.inter(
-                fontSize: 15,
-                color: Colors.black87.withOpacity(.85),
-                height: 1.5,
+            if (note.description.trim().isNotEmpty)
+              Text(
+                note.description,
+                style: GoogleFonts.inter(
+                  fontSize: 15,
+                  color: Colors.black87.withOpacity(.85),
+                  height: 1.5,
+                ),
               ),
-            ),
           ],
         ),
       ),
