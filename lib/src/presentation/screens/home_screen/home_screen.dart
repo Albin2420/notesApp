@@ -33,7 +33,13 @@ class HomeScreen extends StatelessWidget {
               itemCount: controller.notes.length,
               itemBuilder: (context, index) {
                 return NoteCard(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(
+                      () => Notes(note: controller.notes[index]),
+                      transition: Transition.leftToRight,
+                      duration: const Duration(milliseconds: 600),
+                    );
+                  },
                   note: controller.notes[index],
                   color: Color(controller.notes[index].colorCode),
                 );
