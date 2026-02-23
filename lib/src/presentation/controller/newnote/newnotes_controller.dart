@@ -23,26 +23,33 @@ class NewnotesController extends GetxController {
   Future<void> saveNotes({
     required String title,
     required String notes,
-    required int id,
-    required int colorcode,
+    int? id,
+    int? colorcode,
+    NoteModel? existingNote,
   }) async {
     try {
       EasyLoading.show();
-      final note = NoteModel(
-        title: title,
-        description: notes,
-        createdAt: DateTime.now(),
-        id: id,
-        colorCode: colorcode,
-      );
 
-      await notesBox.add(note);
+      if (existingNote != null) {
+        existingNote.title = title;
+        existingNote.description = notes;
+        existingNote.save();
+      } else {
+        final note = NoteModel(
+          title: title,
+          description: notes,
+          createdAt: DateTime.now(),
+          id: id!,
+          colorCode: colorcode!,
+        );
+        await notesBox.add(note);
+      }
+
       EasyLoading.dismiss();
-
       Get.back();
     } catch (e) {
       EasyLoading.dismiss();
-      Fluttertoast.showToast(msg: "something went wrong");
+      Fluttertoast.showToast(msg: "Something went wrong");
       log("💥 Errors in saveNotes:$e");
     }
   }

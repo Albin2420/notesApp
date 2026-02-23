@@ -3,14 +3,21 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notesapp/src/core/config/theme/colors.dart';
+import 'package:notesapp/src/data/models/notes/note_model.dart';
 import 'package:notesapp/src/presentation/controller/newnote/newnotes_controller.dart';
 
 class Notes extends StatelessWidget {
-  const Notes({super.key});
+  final NoteModel? note;
+  const Notes({super.key, this.note});
 
   @override
   Widget build(BuildContext context) {
     final ctrl = Get.put(NewnotesController());
+
+    if (note != null) {
+      ctrl.titleController.text = note!.title;
+      ctrl.notesController.text = note!.description;
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -35,6 +42,7 @@ class Notes extends StatelessWidget {
                   notes: ctrl.notesController.text,
                   id: uniqueId,
                   colorcode: colorCode,
+                  existingNote: note,
                 );
               } else if (value == 'discard') {
                 ctrl.clearFields();
