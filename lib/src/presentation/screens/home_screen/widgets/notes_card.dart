@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:notesapp/src/data/models/notes/note_model.dart';
 
 class NoteCard extends StatelessWidget {
@@ -16,6 +17,8 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formattedDate = DateFormat('MMMM d').format(note.createdAt);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -35,6 +38,8 @@ class NoteCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 8),
+
             if (note.title.trim().isNotEmpty)
               Text(
                 note.title,
@@ -54,12 +59,25 @@ class NoteCard extends StatelessWidget {
             if (note.description.trim().isNotEmpty)
               Text(
                 note.description,
-                style: GoogleFonts.inter(
+                maxLines: 5,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                style: GoogleFonts.lato(
                   fontSize: 15,
-                  color: Colors.black87.withOpacity(.85),
+                  color: Colors.white.withOpacity(.85),
                   height: 1.5,
                 ),
               ),
+
+            SizedBox(height: 10),
+            Text(
+              formattedDate,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ],
         ),
       ),

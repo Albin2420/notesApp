@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:notesapp/src/presentation/controller/home_controller/home_controller.dart';
 import 'package:notesapp/src/presentation/screens/home_screen/widgets/notes_card.dart';
 import 'package:notesapp/src/presentation/screens/notes/notes.dart';
@@ -41,18 +42,35 @@ class HomeScreen extends StatelessWidget {
           } else {
             return AppBar(
               backgroundColor: const Color.fromARGB(255, 2, 2, 47),
-              title: const Text("Notes", style: TextStyle(color: Colors.white)),
+              title: Text(
+                "Notepad",
+                style: GoogleFonts.rubik(fontSize: 18, color: Colors.white),
+              ),
             );
           }
         }),
       ),
-
       body: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8, top: 12),
         child: SafeArea(
           child: Obx(() {
             if (controller.notes.isEmpty) {
-              return const Center(child: Text("No Notes"));
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: Image.asset(scale: 6, "assets/icons/ideaicon.png"),
+                    ),
+                    Text(
+                      "Notes you add appear here",
+                      style: GoogleFonts.poppins(fontSize: 18),
+                    ),
+                  ],
+                ),
+              );
             }
 
             return MasonryGridView.count(
@@ -125,7 +143,6 @@ class HomeScreen extends StatelessWidget {
             Get.to(
               () => const Notes(),
               transition: Transition.leftToRight,
-              duration: const Duration(milliseconds: 600),
               fullscreenDialog: true,
             );
           },

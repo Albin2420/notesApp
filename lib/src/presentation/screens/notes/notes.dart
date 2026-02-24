@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:notesapp/src/core/config/theme/colors.dart';
 import 'package:notesapp/src/data/models/notes/note_model.dart';
 import 'package:notesapp/src/presentation/controller/newnote/newnotes_controller.dart';
@@ -15,8 +16,10 @@ class Notes extends StatelessWidget {
     final ctrl = Get.put(NewnotesController());
 
     if (note != null) {
-      ctrl.titleController.text = note!.title;
-      ctrl.notesController.text = note!.description;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ctrl.titleController.text = note!.title;
+        ctrl.notesController.text = note!.description;
+      });
     }
     return Scaffold(
       backgroundColor: Colors.white,
@@ -76,9 +79,10 @@ class Notes extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(8),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
                 controller: ctrl.titleController,
@@ -92,21 +96,23 @@ class Notes extends StatelessWidget {
                 ),
                 textInputAction: TextInputAction.next,
               ),
-
               const SizedBox(height: 12),
-
-              Expanded(
-                child: TextField(
-                  controller: ctrl.notesController,
-                  expands: true,
-                  maxLines: null,
-                  minLines: null,
-                  keyboardType: TextInputType.multiline,
-                  style: const TextStyle(fontSize: 16),
-                  decoration: const InputDecoration(
-                    hintText: "Write your note...",
-                    border: InputBorder.none,
+              TextField(
+                controller: ctrl.notesController,
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                style: GoogleFonts.lato(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  hintText: "Write your note...",
+                  hintStyle: GoogleFonts.lato(
+                    fontSize: 16,
+                    color: Colors.grey.shade500,
                   ),
+                  border: InputBorder.none,
                 ),
               ),
             ],
