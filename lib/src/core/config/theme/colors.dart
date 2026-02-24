@@ -10,4 +10,10 @@ class AppColors {
     Color(0xff8CCCA8),
     Color(0xffA18DD3),
   ];
+
+  static const primary = Color(0xff02022F);
+  static const secondary = Color(0xff5B5FEF);
+  static const background = Color(0xffF7F8FC);
+  static const textDark = Color(0xff1C1C1E);
+  static const textLight = Color(0xff8E8E93);
 }
