@@ -1,17 +1,49 @@
-# notesapp
+A clean, modern Flutter Notes Application built using Clean Architecture, GetX, and Hive Local Database.
+NotesApp allows users to create, manage, and organize notes with a beautiful responsive UI inspired by Google Keep.
 
-A new Flutter project.
+Features
+        Create Notes
+        Edit Notes
+        Delete Notes
+        Local Data Persistence (Offline Support)
+        Masonry Grid Layout (Google Keep Style)
+        Clean & Responsive UI
+        Fast Local Storage using Hive
+        MVC / Clean Architecture Structure
+        Smooth Navigation using GetX
+        Custom Reusable Widgets
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Architecture
 
-A few resources to get you started if this is your first Flutter project:
+        lib/
+        │
+        ├── core/
+        │   ├── config/
+        │       ├── theme/
+        │
+        ├── data/
+        │   ├── models/
+        │   ├── datasource/
+        │
+        ├── presentation/
+        │   ├── controller/
+        │   ├── screens/
+        │   ├── widgets/
+        │
+        └── main.dart
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+Tech Stack
+
+    Flutter
+    Dart
+    GetX — State Management & Navigation    
+    Hive — Local Database
+    Dio — Networking Ready
+    Google Fonts
+    Flutter Staggered Grid View
+    Flutter EasyLoading
+    Secure Storage
+

@@ -43,10 +43,10 @@ class NoteCard extends StatelessWidget {
             if (note.title.trim().isNotEmpty)
               Text(
                 note.title,
-                maxLines: 3,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.poppins(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Colors.black87,
                 ),
@@ -63,7 +63,7 @@ class NoteCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 softWrap: true,
                 style: GoogleFonts.lato(
-                  fontSize: 15,
+                  fontSize: 14,
                   color: Colors.white.withOpacity(.85),
                   height: 1.5,
                 ),
